@@ -2,7 +2,8 @@
 
 
 # rm dts
-find target/linux/ramips/dts/ -type f $ -name "*.dts" -o -name "*.dtsi" $ -exec sed -i '/&flash0 {/,/};/d' {} \;
+find target/linux/ramips/dts/ -type f $ -name "*.dts" -o -name "*.dtsi" $ -exec sed -i '/&flash0 {/,/};/d' {} +
+find target/linux/ramips/dts/ -type f $ -name "*.dts" -o -name "*.dtsi" $ -exec sed -i 's/flash0: flash@0/flash@0/g' {} +
 grep -r "&flash0 {" target/linux/ramips/dts/ || echo "✅ 全部清空！"
 
 
