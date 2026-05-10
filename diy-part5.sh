@@ -5,7 +5,7 @@
 sed -i '/&flash0 {/,/};/d' target/linux/ramips/dts/mt7620a_zbtlink_zbt-we826-e.dts
 sed -i '/&flash0 {/,/};/d' target/linux/ramips/dts/mt7620a_zbtlink_zbt-we826-32m.dts
 sed -i '/&flash0 {/,/};/d' target/linux/ramips/dts/mt7620a_zte_q7.dts
-sed -i '/&flash0 {/,/};/d' target/linux/ramips/dts/mt7620a_zbt-wr8305rt.dts
+sed -i '/&flash0 {/,/};/d' target/linux/ramips/dts/mt7620n_zbtlink_zbt-wr8305rt.dts
 
 grep -r "&flash0 {" target/linux/ramips/dts/ || echo "✅ 全部清空！"
 
