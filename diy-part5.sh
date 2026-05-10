@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# packages
-# sed -i 's|src-git packages https://github.com/[^/]*/packages|src-git packages https://github.com/xuxin1955/packages|' feeds.conf.default
-
-# password
-# sed -i '/sed -i .*root::0:0:.*$1\$V4UetPzk\$CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
-# sed -i '/sed -i .*root:::0:.*$1\$V4UetPzk\$CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
-
+# hlk7620A dts
+mkdir -p target/linux/ramips/dts/
+cp -f "$GITHUB_WORKSPACE/scripts/dts/mt7620a_zbtlink_zbt-we826.dtsi" "target/linux/ramips/dts/mt7620a_zbtlink_zbt-we826.dtsi"
 
