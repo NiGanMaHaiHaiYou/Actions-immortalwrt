@@ -100,16 +100,18 @@
 			firmware: partition@50000 {
 				compatible = "denx,uimage";
 				label = "firmware";
+				/* reg property is set based on flash size in DTS files */
 			};
 		};
 	};
 };
 
-&state_default {
-	default {
-		groups = "i2c", "uartf", "wled", "spi refclk", "pa", "nd_sd";
-		function = "gpio";
-	};
+&gpio1 {
+	status = "okay";
+};
+
+&gpio3 {
+	status = "okay";
 };
 
 &sdhci {
@@ -124,13 +126,10 @@
 	status = "okay";
 };
 
-&pcie {
-	status = "okay";
-};
-
 &ethernet {
 	nvmem-cells = <&macaddr_factory_4>;
 	nvmem-cell-names = "mac-address";
+
 	mediatek,portmap = "wllll";
 };
 
@@ -139,10 +138,13 @@
 	nvmem-cell-names = "eeprom";
 };
 
-&gpio1 {
-	status = "okay";
+&state_default {
+	default {
+		groups = "i2c", "uartf", "wled", "spi refclk", "pa", "nd_sd";
+		function = "gpio";
+	};
 };
 
-&gpio3 {
+&pcie {
 	status = "okay";
 };

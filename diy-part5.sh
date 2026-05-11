@@ -9,6 +9,3 @@ curl -sSL https://raw.githubusercontent.com/mufeng05/turboacc/main/add_turboacc.
 # hlk7620A dts
 mkdir -p target/linux/ramips/dts/
 cp -f "$GITHUB_WORKSPACE/scripts/dts/mt7620a_zbtlink_zbt-we826.dtsi" "target/linux/ramips/dts/mt7620a_zbtlink_zbt-we826.dtsi"
-
-mkdir -p target/linux/ramips/image/
-cp -f "$GITHUB_WORKSPACE/scripts/image/mt7620.mk" "target/linux/ramips/image/mt7620.mk"
