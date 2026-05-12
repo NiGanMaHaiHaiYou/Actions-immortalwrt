@@ -1,4 +1,4 @@
-name: Build_imm_高通8916
+name: Build_imm_高通_8916
 
 on:
   repository_dispatch:
@@ -293,7 +293,7 @@ jobs:
         else
           echo "⚠️ 并行编译失败，切换到单线程详细模式..."
           set +e
-          make -j1 V=s CC="ccache gcc" CXX="ccache g++"
+          make -j8 V=s CC="ccache gcc" CXX="ccache g++"
           VERBOSE_EXIT=$?
           set -e
           exit $VERBOSE_EXIT
