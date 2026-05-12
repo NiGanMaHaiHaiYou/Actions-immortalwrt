@@ -179,10 +179,46 @@ jobs:
       
       
     - name: make defconfig
-      id: config
       run: |
-       cd openwrt
-       make defconfig
+        cd openwrt
+        
+        if [ -f .config ]; then
+          grep "^CONFIG_PACKAGE_" .config | grep "=y" | sed 's/CONFIG_PACKAGE_//;s/=y//' | sort > user_selected.txt
+        else
+          touch user_selected.txt
+        fi
+        
+        make defconfig V=s
+        
+        grep "^CONFIG_PACKAGE_" .config | grep "=y" | sed 's/CONFIG_PACKAGE_//;s/=y//' | sort > full_list.txt
+        
+        comm -13 user_selected.txt full_list.txt > auto_selected.txt
+        
+        echo "::group::📊 查看全量依赖追溯报告"
+        echo "=================================================================="
+        echo "格式说明: [自动选中的包] <--- [拉取它的上层包]"
+        echo "=================================================================="
+        
+        while read -r pkg; do
+          PARENT_CANDIDATES=$(grep -A 100 "config PACKAGE_.*" tmp/.config-package.in | grep -B 100 "select PACKAGE_$pkg" | grep "config PACKAGE_" | sed 's/.*PACKAGE_//' | sort -u)
+          
+          FOUND_BY=""
+          for parent in $PARENT_CANDIDATES; do
+            if grep -x -q "$parent" user_selected.txt; then
+              FOUND_BY="$FOUND_BY $parent"
+            fi
+          done
+          
+          if [ -z "$FOUND_BY" ]; then
+            printf "➕ %-35s <--- [间接依赖/系统底层]\n" "$pkg"
+          else
+            printf "➕ %-40s <--- [元凶]: %s\n" "$pkg" "$FOUND_BY"
+          fi
+        done < auto_selected.txt
+        
+        echo "=================================================================="
+        echo "::endgroup::"
+
        
     - name: 查看 openwrt 目录
       run: ls -la openwrt/
